@@ -1,1 +1,192 @@
+ /* ANIMATIONS.CSS - Dream Dictionary Motion Effects */
 
+/* Background Animation Layers */
+.background {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: -1;
+    overflow: hidden;
+}
+
+.stars, .twinkling, .clouds {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+}
+
+/* Starfield Base Layer */
+.stars {
+    background: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="100" height="100" viewBox="0 0 100 100"><circle cx="20" cy="20" r="0.8" fill="white" opacity="0.8"/><circle cx="50" cy="30" r="0.6" fill="white" opacity="0.6"/><circle cx="80" cy="20" r="1" fill="white" opacity="0.9"/><circle cx="30" cy="60" r="0.7" fill="white" opacity="0.7"/><circle cx="70" cy="70" r="0.5" fill="white" opacity="0.5"/><circle cx="10" cy="80" r="0.9" fill="white" opacity="0.9"/><circle cx="90" cy="90" r="0.4" fill="white" opacity="0.4"/></svg>') repeat;
+    animation: subtlePulse 8s infinite alternate;
+}
+
+/* Twinkling Effect Layer */
+.twinkling {
+    background: transparent;
+    animation: twinkle 5s infinite ease-in-out;
+}
+
+/* Moving Clouds Layer */
+.clouds {
+    background: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="200" height="100" viewBox="0 0 200 100"><path d="M20,50 Q30,40 40,50 Q50,30 60,50 Q70,40 80,50 Z" fill="white" opacity="0.15"/><path d="M120,30 Q130,20 140,30 Q150,10 160,30 Q170,20 180,30 Z" fill="white" opacity="0.15"/></svg>') repeat;
+    animation: moveClouds 120s linear infinite;
+}
+
+/* Keyframe Animations */
+@keyframes moveClouds {
+    0% { background-position: 0 0; }
+    100% { background-position: 1000px 0; }
+}
+
+@keyframes twinkle {
+    0%, 100% { opacity: 0.2; }
+    50% { opacity: 0.8; }
+}
+
+@keyframes subtlePulse {
+    0% { transform: scale(1); }
+    100% { transform: scale(1.02); }
+}
+
+/* Card Entrance Animation */
+.dream-card {
+    animation: cardEntrance 0.5s ease-out forwards;
+    opacity: 0;
+    transform: translateY(20px);
+}
+
+@keyframes cardEntrance {
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Floating Button Animation */
+.floating-add-btn {
+    animation: float 3s ease-in-out infinite;
+}
+
+@keyframes float {
+    0%, 100% { transform: translateY(0) rotate(0deg); }
+    50% { transform: translateY(-10px) rotate(5deg); }
+}
+
+/* Modal Entrance */
+.modal-content {
+    animation: modalFadeIn 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+@keyframes modalFadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(20px) scale(0.95);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+    }
+}
+
+/* Button Hover Effects */
+.submit-btn:hover, 
+.search-btn:hover, 
+.sort-btn:hover {
+    animation: buttonPulse 0.5s ease;
+}
+
+@keyframes buttonPulse {
+    0% { transform: scale(1); }
+    50% { transform: scale(1.05); }
+    100% { transform: scale(1); }
+}
+
+/* Word Day Highlight Pulse */
+.highlight {
+    animation: highlightPulse 2s infinite;
+}
+
+@keyframes highlightPulse {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0.8; }
+}
+
+/* Night Mode Transition */
+body.night-mode {
+    transition: background 0.8s ease, color 0.5s ease;
+}
+
+/* Responsive Adjustments */
+@media (max-width: 768px) {
+    @keyframes float {
+        0%, 100% { transform: translateY(0) rotate(0deg); }
+        50% { transform: translateY(-5px) rotate(3deg); }
+    }
+    
+    .modal-content {
+        animation: modalFadeInMobile 0.3s ease-out;
+    }
+    
+    @keyframes modalFadeInMobile {
+        from {
+            opacity: 0;
+            transform: translateY(10px);
+        }
+        to {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    }
+}
+
+
+/* Floating Elements */
+.floating-star {
+    position: absolute;
+    background: white;
+    border-radius: 50%;
+    animation: floatStar linear infinite;
+    pointer-events: none;
+    z-index: -1;
+}
+
+.floating-cloud {
+    position: absolute;
+    background: white;
+    border-radius: 50%;
+    animation: floatCloud linear infinite;
+    pointer-events: none;
+    z-index: -1;
+}
+
+@keyframes floatStar {
+    0% {
+        transform: translateY(0) translateX(0);
+    }
+    50% {
+        transform: translateY(-20vh) translateX(10px);
+    }
+    100% {
+        transform: translateY(-40vh) translateX(0);
+    }
+}
+
+@keyframes floatCloud {
+    0% {
+        transform: translateX(0);
+    }
+    100% {
+        transform: translateX(100vw);
+    }
+}
+
+@keyframes themeTogglePulse {
+    0% { transform: scale(1); }
+    50% { transform: scale(1.2); }
+    100% { transform: scale(1); }
+}
