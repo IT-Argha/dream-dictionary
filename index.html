@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Dream Dictionary</title>
+    <link rel="icon" href="data:," />
+    <!-- Prevents favicon 404 error -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@400;700&family=Poppins:wght@300;400;600&family=Comfortaa:wght@300;400;700&display=swap"
+      rel="stylesheet" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" />
+    <link rel="stylesheet" href="css/style.css" />
+    <link rel="stylesheet" href="css/animations.css" />
+  </head>
+  <body>
+    <div class="background">
+      <div class="stars"></div>
+      <div class="twinkling"></div>
+      <div class="clouds"></div>
+    </div>
+
+    <header>
+      <div class="header-content">
+        <h1 class="dream-title">Dream Dictionary</h1>
+        <p class="dream-subtitle">Your personal word collection</p>
+      </div>
+      <div class="theme-toggle">
+        <i class="fas fa-moon" id="theme-icon"></i>
+
+        <nav class="dictionary-nav">
+          <div class="search-container">
+            <input type="text" id="searchInput" placeholder="Search words..." />
+            <button id="searchBtn" class="search-btn">
+              <i class="fas fa-search"></i>
+            </button>
+          </div>
+          <button id="sortBtn" class="sort-btn">
+            <i class="fas fa-sort-amount-down"></i>
+            <span>Newest</span>
+          </button>
+        </nav>
+      </div>
+    </header>
+
+    <main>
+      <section class="dream-gallery">
+        <div class="dreams-container" id="wordsContainer">
+          <!-- Word cards will be dynamically inserted here -->
+          <div class="dream-card placeholder-card">
+            <i class="fas fa-book-open"></i>
+            <h3>Your dictionary is empty</h3>
+            <p>Add your first word using the pen button below</p>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <!-- Floating Add Button -->
+    <button class="floating-add-btn" id="floatingAddBtn">
+      <i class="fas fa-pen"></i>
+    </button>
+
+    <!-- Add Word Modal -->
+    <div class="modal" id="addWordModal">
+      <div class="modal-content glass-card">
+        <span class="close-modal">&times;</span>
+        <h2><i class="fas fa-plus-circle"></i> Add New Word</h2>
+        <form id="wordForm">
+          <div class="form-group">
+            <label for="addedBy"><i class="fas fa-user"></i> Added By</label>
+            <input
+              type="text"
+              id="addedBy"
+              name="addedBy"
+              placeholder="Your name"
+              required />
+          </div>
+          <div class="form-group">
+            <label for="word"><i class="fas fa-font"></i> Word</label>
+            <input
+              type="text"
+              id="word"
+              name="word"
+              placeholder="The word you want to add"
+              required />
+          </div>
+          <div class="form-group">
+            <label for="meaning"
+              ><i class="fas fa-comment-dots"></i> Meaning</label
+            >
+            <textarea
+              id="meaning"
+              name="meaning"
+              placeholder="The word's meaning"
+              required></textarea>
+          </div>
+          <div class="form-group">
+            <label for="note"
+              ><i class="fas fa-sticky-note"></i> Note (Optional)</label
+            >
+            <textarea
+              id="note"
+              name="note"
+              placeholder="Personal notes about this word"></textarea>
+          </div>
+          <div class="form-group">
+            <label for="wordDay"
+              ><i class="fas fa-calendar-star"></i> Word Day (Optional)</label
+            >
+            <input type="date" id="wordDay" name="wordDay" />
+            <p class="hint">Choose a special day to celebrate this word</p>
+          </div>
+          <button type="submit" class="submit-btn">
+            <span>Add to Dictionary</span>
+            <i class="fas fa-book-medical"></i>
+          </button>
+        </form>
+      </div>
+    </div>
+
+    <div class="toast" id="toast"></div>
+
+    <!-- Firebase SDK -->
+    <script src="https://www.gstatic.com/firebasejs/9.6.0/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.6.0/firebase-database-compat.js"></script>
+
+    <!-- App Scripts -->
+    <script src="js/firebase-config.js"></script>
+    <script src="js/dictionary.js"></script>
+
+    <!-- Only include app.js if you're actually using it -->
+    <script src="js/app.js" type="module"></script>
+  </body>
+</html>
