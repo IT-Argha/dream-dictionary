@@ -1,0 +1,614 @@
+/* ========== ROOT VARIABLES ========== */
+:root {
+  /* Color Scheme */
+  --primary-color: #8a2be2;
+  --secondary-color: #9370db;
+  --accent-color: #ff8c00;
+  --text-color: #2d3436;
+  --light-text: #f8f8f8;
+  
+  /* Background Gradients */
+  --bg-gradient-day: linear-gradient(135deg, #a1c4fd 0%, #c2e9fb 100%);
+  --bg-gradient-night: linear-gradient(135deg, #0f2027 0%, #203a43 50%, #2c5364 100%);
+  
+  /* Glass Card Styles */
+  --card-bg-day: rgba(255, 255, 255, 0.25);
+  --card-bg-night: rgba(0, 0, 0, 0.25);
+  --card-border-day: rgba(255, 255, 255, 0.4);
+  --card-border-night: rgba(0, 0, 0, 0.4);
+  --card-shadow-day: 0 8px 32px 0 rgba(31, 38, 135, 0.15);
+  --card-shadow-night: 0 8px 32px 0 rgba(0, 0, 0, 0.4);
+  
+  /* Navigation */
+  --nav-bg-day: rgba(255, 255, 255, 0.9);
+  --nav-bg-night: rgba(0, 0, 0, 0.9);
+  
+  /* Transitions */
+  --transition-fast: all 0.3s ease;
+  --transition-medium: all 0.5s ease;
+}
+
+/* ========== BASE STYLES ========== */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html {
+  height: 100%;
+  scroll-behavior: smooth;
+}
+
+body {
+  font-family: 'Poppins', sans-serif;
+  color: var(--text-color);
+  background: var(--bg-gradient-day);
+  min-height: 100vh;
+  transition: var(--transition-medium);
+  line-height: 1.6;
+  display: flex;
+  flex-direction: column;
+}
+
+body.night-mode {
+  color: var(--light-text);
+  background: var(--bg-gradient-night);
+}
+
+/* ========== HEADER STYLES ========== */
+header {
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+  background: var(--nav-bg-day);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+  padding: 1rem;
+}
+
+body.night-mode header {
+  background: var(--nav-bg-night);
+  box-shadow: 0 2px 10px rgba(0,0,0,0.3);
+}
+
+.header-content {
+  max-width: 1200px;
+  margin: 0 auto;
+  text-align: center;
+  position: relative;
+}
+
+.dream-title {
+  font-family: 'Dancing Script', cursive;
+  font-size: 3rem;
+  background: linear-gradient(to right, var(--primary-color), var(--accent-color));
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  margin-bottom: 0.3rem;
+}
+
+.dream-subtitle {
+  font-family: 'Comfortaa', cursive;
+  font-size: 1.1rem;
+  margin-bottom: 0.8rem;
+}
+
+/* ========== COMBINED NAVIGATION BAR ========== */
+.theme-toggle {
+  display: flex;
+  align-items: center;
+  gap: 1.5rem;
+}
+
+.dictionary-nav {
+  display: flex;
+  align-items: center;
+  gap: 0.8rem;
+  flex-grow: 1;
+}
+
+/* Theme Toggle */
+#theme-icon {
+  font-size: 1.3rem;
+  color: var(--primary-color);
+  cursor: pointer;
+  transition: var(--transition-fast);
+}
+
+body.night-mode #theme-icon {
+  color: var(--secondary-color);
+}
+
+#theme-icon:hover {
+  transform: scale(1.1);
+}
+
+/* Search and Sort Container */
+.search-container {
+  display: flex;
+  flex-grow: 1;
+  max-width: 500px;
+}
+
+#searchInput {
+  flex-grow: 1;
+  border-radius: 20px 0 0 20px;
+  border: 2px solid rgba(138, 43, 226, 0.2);
+  padding: 0.5rem 1rem;
+  font-family: 'Poppins', sans-serif;
+  transition: var(--transition-fast);
+}
+
+body.night-mode #searchInput {
+  border: 2px solid rgba(147, 112, 219, 0.3);
+  background: rgba(0, 0, 0, 0.3);
+  color: var(--light-text);
+}
+
+.search-btn {
+  border-radius: 0 20px 20px 0;
+  padding: 0 1rem;
+  background: linear-gradient(to right, var(--primary-color), var(--accent-color));
+  color: white;
+  border: none;
+  cursor: pointer;
+  transition: var(--transition-fast);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.search-btn:hover {
+  background: linear-gradient(to right, var(--secondary-color), #ff9c33);
+}
+
+.sort-btn {
+  background: rgba(138, 43, 226, 0.1);
+  border: none;
+  border-radius: 20px;
+  padding: 0.5rem 1rem;
+  cursor: pointer;
+  transition: var(--transition-fast);
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+body.night-mode .sort-btn {
+  background: rgba(147, 112, 219, 0.1);
+  color: var(--light-text);
+}
+
+.sort-btn:hover {
+  background: rgba(138, 43, 226, 0.2);
+}
+
+/* ========== MAIN CONTENT ========== */
+.main-content {
+  flex: 1;
+  max-width: 1200px;
+  width: 100%;
+  margin: 0 auto;
+  padding: 1rem;
+  overflow-y: auto;
+  -webkit-overflow-scrolling: touch;
+}
+
+.dreams-container {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: 1.5rem;
+  padding: 0.5rem 0;
+}
+
+/* ========== DREAM CARD STYLES ========== */
+.dream-card {
+  background: var(--card-bg-day);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border-radius: 16px;
+  padding: 1.5rem;
+  border: 1px solid var(--card-border-day);
+  box-shadow: var(--card-shadow-day);
+  transition: transform var(--transition-medium), box-shadow var(--transition-medium);
+  position: relative;
+  overflow: hidden;
+  opacity: 0;
+  transform: translateY(20px);
+}
+
+body.night-mode .dream-card {
+  background: var(--card-bg-night);
+  border: 1px solid var(--card-border-night);
+  box-shadow: var(--card-shadow-night);
+}
+
+.dream-card::before {
+  content: '';
+  position: absolute;
+  top: -50%;
+  left: -50%;
+  width: 200%;
+  height: 200%;
+  background: radial-gradient(circle, rgba(138, 43, 226, 0.1) 0%, rgba(0, 0, 0, 0) 70%);
+  opacity: 0;
+  transition: opacity var(--transition-medium);
+}
+
+.dream-card:hover {
+  transform: translateY(-5px);
+}
+
+.dream-card:hover::before {
+  opacity: 1;
+}
+
+.dream-card h3 {
+  font-family: 'Comfortaa', cursive;
+  color: var(--primary-color);
+  margin-bottom: 0.8rem;
+  font-size: 1.4rem;
+}
+
+body.night-mode .dream-card h3 {
+  color: var(--secondary-color);
+}
+
+.dream-author {
+  font-style: italic;
+  margin-bottom: 1rem;
+  opacity: 0.8;
+}
+
+.dream-description {
+  margin-bottom: 1.5rem;
+}
+
+.word-note {
+  padding: 0.8rem;
+  margin: 1rem 0;
+  border-radius: 8px;
+  background: rgba(138, 43, 226, 0.05);
+  border-left: 3px solid var(--primary-color);
+  font-style: italic;
+}
+
+body.night-mode .word-note {
+  background: rgba(147, 112, 219, 0.1);
+  border-left: 3px solid var(--secondary-color);
+}
+
+.dream-meta {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  margin-top: 1.5rem;
+  font-size: 0.85rem;
+}
+
+.dream-date {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.dream-date i {
+  color: var(--primary-color);
+}
+
+body.night-mode .dream-date i {
+  color: var(--secondary-color);
+}
+
+.highlight {
+  color: var(--accent-color);
+  font-weight: 500;
+}
+
+.delete-btn {
+  position: absolute;
+  top: 1rem;
+  right: 1rem;
+  background: transparent;
+  border: none;
+  color: var(--accent-color);
+  cursor: pointer;
+  font-size: 1rem;
+  transition: var(--transition-fast);
+}
+
+.delete-btn:hover {
+  transform: scale(1.2);
+}
+
+/* ========== ADD DREAM MODAL ========== */
+.modal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0,0,0,0.5);
+  backdrop-filter: blur(5px);
+  -webkit-backdrop-filter: blur(5px);
+  z-index: 2000;
+  display: none;
+  align-items: center;
+  justify-content: center;
+  padding: 1rem;
+}
+
+.modal-content {
+  background: var(--card-bg-day);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border-radius: 16px;
+  padding: 2rem;
+  border: 1px solid var(--card-border-day);
+  box-shadow: var(--card-shadow-day);
+  width: 100%;
+  max-width: 500px;
+  max-height: 90vh;
+  overflow-y: auto;
+  position: relative;
+}
+
+body.night-mode .modal-content {
+  background: var(--card-bg-night);
+  border: 1px solid var(--card-border-night);
+  box-shadow: var(--card-shadow-night);
+}
+
+.close-modal {
+  position: absolute;
+  top: 1rem;
+  right: 1rem;
+  font-size: 1.5rem;
+  cursor: pointer;
+  color: var(--text-color);
+  transition: var(--transition-fast);
+}
+
+body.night-mode .close-modal {
+  color: var(--light-text);
+}
+
+.close-modal:hover {
+  color: var(--accent-color);
+  transform: rotate(90deg);
+}
+
+/* ========== FORM STYLES ========== */
+.form-group {
+  margin-bottom: 1.5rem;
+}
+
+.form-group label {
+  display: block;
+  margin-bottom: 0.5rem;
+  font-weight: 600;
+  color: var(--primary-color);
+}
+
+body.night-mode .form-group label {
+  color: var(--secondary-color);
+}
+
+.form-group input,
+.form-group textarea,
+.form-group select {
+  width: 100%;
+  padding: 0.8rem 1rem;
+  border-radius: 12px;
+  border: 2px solid rgba(138, 43, 226, 0.2);
+  background: rgba(255, 255, 255, 0.8);
+  font-family: 'Poppins', sans-serif;
+  transition: var(--transition-fast);
+  font-size: 1rem;
+}
+
+body.night-mode .form-group input,
+body.night-mode .form-group textarea,
+body.night-mode .form-group select {
+  background: rgba(0, 0, 0, 0.3);
+  border: 2px solid rgba(147, 112, 219, 0.3);
+  color: var(--light-text);
+}
+
+.form-group input:focus,
+.form-group textarea:focus,
+.form-group select:focus {
+  outline: none;
+  border-color: var(--primary-color);
+  box-shadow: 0 0 0 3px rgba(138, 43, 226, 0.2);
+}
+
+.form-group textarea {
+  min-height: 100px;
+  resize: vertical;
+}
+
+.submit-btn {
+  background: linear-gradient(to right, var(--primary-color), var(--accent-color));
+  color: white;
+  border: none;
+  padding: 1rem 1.5rem;
+  border-radius: 12px;
+  font-family: 'Poppins', sans-serif;
+  font-weight: 600;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  transition: var(--transition-fast);
+  width: 100%;
+  font-size: 1rem;
+  box-shadow: 0 4px 15px rgba(138, 43, 226, 0.3);
+}
+
+.submit-btn:hover {
+  background: linear-gradient(to right, var(--secondary-color), #ff9c33);
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(138, 43, 226, 0.4);
+}
+
+/* ========== FLOATING ACTION BUTTON ========== */
+.floating-add-btn {
+  position: fixed;
+  bottom: 2rem;
+  right: 2rem;
+  width: 4rem;
+  height: 4rem;
+  border-radius: 50%;
+  background: linear-gradient(to right, var(--primary-color), var(--accent-color));
+  color: white;
+  border: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.5rem;
+  cursor: pointer;
+  box-shadow: 0 4px 20px rgba(138, 43, 226, 0.3);
+  z-index: 90;
+  transition: var(--transition-fast);
+}
+
+.floating-add-btn:hover {
+  transform: scale(1.1) rotate(15deg);
+  box-shadow: 0 6px 25px rgba(138, 43, 226, 0.4);
+}
+
+/* ========== TOAST NOTIFICATIONS ========== */
+.toast {
+  position: fixed;
+  bottom: 5rem;
+  left: 50%;
+  transform: translateX(-50%);
+  background: rgba(0, 0, 0, 0.8);
+  color: white;
+  padding: 1rem 2rem;
+  border-radius: 12px;
+  opacity: 0;
+  transition: var(--transition-fast);
+  z-index: 1000;
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  max-width: 90%;
+  text-align: center;
+}
+
+.toast.show {
+  opacity: 1;
+}
+
+/* ========== ANIMATIONS ========== */
+@keyframes cardEntrance {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes float {
+  0%, 100% { transform: translateY(0) rotate(0deg); }
+  50% { transform: translateY(-10px) rotate(5deg); }
+}
+
+@keyframes themeTogglePulse {
+  0% { transform: scale(1); }
+  50% { transform: scale(1.2); }
+  100% { transform: scale(1); }
+}
+
+/* ========== UTILITY CLASSES ========== */
+.placeholder-card {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  padding: 3rem 2rem;
+  opacity: 0.7;
+  grid-column: 1 / -1;
+}
+
+.placeholder-card i {
+  font-size: 3rem;
+  margin-bottom: 1rem;
+  color: var(--primary-color);
+}
+
+.no-scroll {
+  overflow: hidden;
+}
+
+/* ========== MOBILE RESPONSIVENESS ========== */
+@media (max-width: 768px) {
+  header {
+    padding: 0.8rem;
+  }
+  
+  .dream-title {
+    font-size: 2.5rem;
+  }
+  
+  .theme-toggle {
+    flex-direction: column;
+    gap: 0.8rem;
+  }
+  
+  .dictionary-nav {
+    flex-direction: column;
+    gap: 0.5rem;
+    width: 100%;
+  }
+  
+  .search-container {
+    width: 100%;
+  }
+  
+  .dreams-container {
+    grid-template-columns: 1fr;
+  }
+  
+  .floating-add-btn {
+    bottom: 1.5rem;
+    right: 1.5rem;
+    width: 3.5rem;
+    height: 3.5rem;
+    font-size: 1.3rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .dream-title {
+    font-size: 2rem;
+  }
+  
+  .dream-subtitle {
+    font-size: 0.9rem;
+  }
+  
+  .modal-content {
+    padding: 1.5rem;
+  }
+  
+  .form-group input,
+  .form-group textarea,
+  .form-group select {
+    padding: 0.7rem;
+  }
+  
+  .submit-btn {
+    padding: 0.8rem;
+  }
+}
